@@ -26,12 +26,12 @@ Vue.component('MainVue', require('./MainVue.vue').default);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-// import router from './router.js';
+import router from './router.js';
 import Vuetify from 'vuetify';
 Vue.use(Vuetify);
 
 const app = new Vue({
     el: '#app',
-    // router,
+    router,
     vuetify: new Vuetify(),
 });

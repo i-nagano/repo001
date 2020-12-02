@@ -14,10 +14,10 @@
                         <label for="unit_price">単価:</label>
                         <input type="text" name="unit_price" id="unit_price" v-model="unit_price">
                     </li>
+                    <li>
+                        <button v-on:click="postSweet" class="btn btn-outline-dark">登録</button>
+                    </li>
                 </ul>
-            </v-row>
-            <v-row>
-                <button v-on:click="postSweet" class="btn btn-outline-dark">登録</button>
             </v-row>
         </v-container>
     </div>

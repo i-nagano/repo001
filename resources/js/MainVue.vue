@@ -1,18 +1,23 @@
 <template>
     <div>
+        <header>
+            <navbar></navbar>
+        </header>
         <main>
-            <example-component></example-component>
+            <!-- <example-component></example-component> -->
             <router-view></router-view>
         </main>
     </div>
 </template>
 
 <script>
-    import ExampleComponent from './components/routerviews/ExampleComponent.vue';
+    import Navbar from './components/Navbar.vue';
+    // import ExampleComponent from './components/routerviews/ExampleComponent.vue';
     export default {
         name: 'MainVue',
         components: {
-            ExampleComponent,
+            Navbar,
+            // ExampleComponent,
         },
     };
 </script>
