@@ -2,7 +2,7 @@
     <div>
         <v-container class="mt-2">
             <v-row class="mt-2" justify="start">
-                <h3>商品登録</h3>
+                <h5>商品登録</h5>
             </v-row>
             <v-row class="mt-2" justify="start">
                 <ul>
@@ -11,10 +11,10 @@
                         <input type="text" name="sweet_name" id="sweet_name" v-model="sweet_name">
                     </li>
                     <li>
-                        <label for="unit_price">単価:</label>
+                        <label for="unit_price">単　価:</label>
                         <input type="text" name="unit_price" id="unit_price" v-model="unit_price">
                     </li>
-                    <li>
+                    <li align="right">
                         <button v-on:click="postSweet" class="btn btn-outline-dark">登録</button>
                     </li>
                 </ul>

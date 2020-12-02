@@ -28,6 +28,8 @@ Vue.component('MainVue', require('./MainVue.vue').default);
 
 import router from './router.js';
 import Vuetify from 'vuetify';
+import "vuetify/dist/vuetify.min.css";
+
 Vue.use(Vuetify);
 
 const app = new Vue({
