@@ -14,7 +14,8 @@ class SweetController extends Controller
      */
     public function index()
     {
-        //
+        $sweets = Sweet::all();
+        return response()->json($sweets);
     }
 
     /**
@@ -25,7 +26,11 @@ class SweetController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $sweet = new Sweet();
+        $sweet->sweet_id = $request->sweet_id;
+        $sweet->sweet_name = $request->sweet_name;
+        $sweet->unit_price = $request->unit_price;
+        $sweet->save();
     }
 
     /**

@@ -14,7 +14,8 @@ class ReceiptController extends Controller
      */
     public function index()
     {
-        //
+        $receipts = Receipt::all();
+        return response()->json($receipts);
     }
 
     /**
@@ -25,7 +26,9 @@ class ReceiptController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $receipt = new Receipt();
+        $receipt->receipt_id = $request->receipt_id;
+        $receipt->save();
     }
 
     /**
