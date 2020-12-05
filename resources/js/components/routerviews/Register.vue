@@ -38,7 +38,7 @@
                     <v-card color="blue" outlined tile height=100>d</v-card>
                 </v-col>
             </v-row>
-            <v-row class="blue lighten-4" style="height: 100px;">
+            <v-row class="blue lighten-4" style="height: 250px;">
                 <v-col cols=2 v-for="n in 10" :key="n">
                     <v-card color="blue" outlined tile height=100>文字</v-card>
                 </v-col>

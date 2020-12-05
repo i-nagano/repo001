@@ -1920,14 +1920,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
- // import ExampleComponent from './components/routerviews/ExampleComponent.vue';
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'MainVue',
   components: {
-    Navbar: _components_Navbar_vue__WEBPACK_IMPORTED_MODULE_0__["default"] // ExampleComponent,
-
+    Navbar: _components_Navbar_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   }
 });
 
@@ -38342,7 +38339,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
+  return _c("v-app", [
     _c("header", [_c("navbar")], 1),
     _vm._v(" "),
     _c("main", [_c("router-view")], 1)
@@ -38568,7 +38565,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "v-row",
-            { staticClass: "blue lighten-4", staticStyle: { height: "100px" } },
+            { staticClass: "blue lighten-4", staticStyle: { height: "250px" } },
             _vm._l(10, function(n) {
               return _c(
                 "v-col",
