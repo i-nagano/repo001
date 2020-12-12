@@ -37,13 +37,13 @@
         props: {},
         data: function () {
             return {
-                showContent: faluse,
+                showContent: false,
                 customer_id: "",
                 customer_name: "",
-                phone_numbe: "",
+                phone_number: "",
                 email: "",
                 customers: [],
-
+                customer: "",
             };
         },
         created: function () {},
@@ -61,6 +61,25 @@
                       return console.log(response.err.data);
                   });
             },
+            postCustomer() {
+                axios
+                  .post('/api/cutomers', {
+                      customer_name: this.customer_name,
+                      phone_number = this.phone_number,
+                      email = this.email,
+                  })
+                  .then((result) => {
+                      this.getCustomers();
+                      this.customer_name = "";
+                      this.phone_number = "";
+                      this.email = "";
+                      this.customer = response.data;
+                      return console.log(response.data);
+                  }).catch((err) => {
+                      this.message = err.reponse.data;
+                      return console.log(err.response.data);
+                  });
+            }
 
         }
     };

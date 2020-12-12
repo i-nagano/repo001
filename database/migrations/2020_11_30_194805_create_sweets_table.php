@@ -15,9 +15,9 @@ class CreateSweetsTable extends Migration
     {
         Schema::create('sweets', function (Blueprint $table) {
             $table->id();
-            $table->integer('sweet_id');
+            $table->integer('sweet_id')->nullable();
             $table->string('sweet_name');
-            $table->string('unit_price');
+            $table->double('unit_price');
             $table->timestamps();
         });
     }

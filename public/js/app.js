@@ -2071,6 +2071,39 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Sweet',
@@ -2080,12 +2113,18 @@ __webpack_require__.r(__webpack_exports__);
     return {
       showContent: false,
       message: "",
+      sweet_id: "",
       sweet_name: "",
       unit_price: "",
       sweets: [],
-      sweetUpdate: ""
+      sweetUpdate: "",
+      sweet: ""
     };
   },
+  created: function created() {
+    this.getSweets();
+  },
+  mounted: function mounted() {},
   methods: {
     getSweets: function getSweets() {
       var _this = this;
@@ -2102,6 +2141,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       _axios_auth_js__WEBPACK_IMPORTED_MODULE_0__["default"].post('/api/sweets', {
+        sweet_id: this.sweet_id,
         sweet_name: this.sweet_name,
         unit_price: this.unit_price
       }).then(function (response) {
@@ -2109,11 +2149,9 @@ __webpack_require__.r(__webpack_exports__);
 
         _this2.sweet_name = "";
         _this2.unit_price = "";
-        _this2.sweet = response.data;
-        return console.lgo(response.data);
+        _this2.sweet = response.data; // return console.log(response.data);
       })["catch"](function (error) {
-        _this2.message = response.error.data;
-        return console.log(response.error.data);
+        _this2.message = error.response.data; // return console.log(error.response.data);
       });
     }
   }
@@ -6580,7 +6618,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nul[data-v-3f0ccf4b] {\n    list-style: none;\n}\n", ""]);
+exports.push([module.i, "\nul[data-v-3f0ccf4b] {\n    list-style: none;\n}\n.table-row[data-v-3f0ccf4b] {\n    background-color: #fff;\n}\n.table-row[data-v-3f0ccf4b]:hover {\n    background-color: #ddd;\n}\n", ""]);
 
 // exports
 
@@ -38734,7 +38772,84 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _c("v-row", [_c("table")])
+          _c("v-row", [
+            _c("table", [
+              _c("thead", { staticClass: "table-row" }, [
+                _c("tr", [
+                  _c("th", [
+                    _vm._v(
+                      "\n                            商品名\n                        "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("th", [
+                    _vm._v(
+                      "\n                            単　価\n                        "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("th")
+                ])
+              ]),
+              _vm._v(" "),
+              _c(
+                "tbody",
+                _vm._l(_vm.sweets, function(sweet) {
+                  return _c("tr", { key: sweet.id }, [
+                    _c("td", [
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(sweet.sweet_name) +
+                          "\n                        "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(sweet.unit_price) +
+                          "\n                        "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [_c("button", [_vm._v("編集")])])
+                  ])
+                }),
+                0
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("v-row", [
+            _c(
+              "ul",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.message,
+                    expression: "message"
+                  }
+                ]
+              },
+              [
+                _c("li", [
+                  _vm._v(
+                    "\n                    エラーメッセージ:\n                "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(_vm.$data.message) +
+                      "\n                "
+                  )
+                ])
+              ]
+            )
+          ])
         ],
         1
       )
@@ -98425,7 +98540,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
-var instance = axios__WEBPACK_IMPORTED_MODULE_0___default()({
+var instance = axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({
   baseURL: ''
 });
 /* harmony default export */ __webpack_exports__["default"] = (instance);

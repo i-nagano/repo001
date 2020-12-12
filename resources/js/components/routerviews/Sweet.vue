@@ -21,8 +21,41 @@
             </v-row>
             <v-row>
                 <table>
-
+                    <thead class="table-row">
+                        <tr>
+                            <th>
+                                商品名
+                            </th>
+                            <th>
+                                単　価
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="sweet in sweets" v-bind:key="sweet.id">
+                            <td>
+                                {{ sweet.sweet_name }}
+                            </td>
+                            <td>
+                                {{ sweet.unit_price }}
+                            </td>
+                            <td>
+                                <button>編集</button>
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
+            </v-row>
+            <v-row>
+                <ul v-show="message">
+                    <li>
+                        エラーメッセージ:
+                    </li>
+                    <li>
+                        {{ $data.message }}
+                    </li>
+                </ul>
             </v-row>
         </v-container>
     </div>
@@ -38,42 +71,49 @@
             return {
                 showContent: false,
                 message: "",
+                sweet_id: "",
                 sweet_name: "",
                 unit_price: "",
                 sweets: [],
                 sweetUpdate: "",
+                sweet: "",
             };
         },
+        created: function() {
+            this.getSweets();
+        },
+        mounted: function() {},
         methods: {
-            getSweets(){
+            getSweets() {
                 axios
-                  .get('/api/sweets')
-                  .then(response => {
-                      this.sweets = response.data;
-                      return console.log(response.data);
-                  })
-                  .catch(error => {
-                      this.message = response.error.data;
-                      return console.log(response.error.data);                      
-                  });
+                    .get('/api/sweets')
+                    .then(response => {
+                        this.sweets = response.data;
+                        return console.log(response.data);
+                    })
+                    .catch(error => {
+                        this.message = response.error.data;
+                        return console.log(response.error.data);
+                    });
             },
             postSweet() {
                 axios
-                  .post('/api/sweets', {
-                      sweet_name: this.sweet_name,
-                      unit_price: this.unit_price,
-                  })
-                  .then(response => {
-                      this.getSweets();
-                      this.sweet_name = "";
-                      this.unit_price = "";
-                      this.sweet = response.data;
-                      return console.lgo(response.data);
-                  })
-                  .catch(error => {
-                      this.message = response.error.data;
-                      return console.log(response.error.data);
-                  });
+                    .post('/api/sweets', {
+                        sweet_id: this.sweet_id,
+                        sweet_name: this.sweet_name,
+                        unit_price: this.unit_price,
+                    })
+                    .then(response => {
+                        this.getSweets();
+                        this.sweet_name = "";
+                        this.unit_price = "";
+                        this.sweet = response.data;
+                        // return console.log(response.data);
+                    })
+                    .catch(error => {
+                        this.message = error.response.data;
+                        // return console.log(error.response.data);
+                    });
             },
         },
     };
@@ -82,5 +122,13 @@
 <style scoped>
     ul {
         list-style: none;
+    }
+
+    .table-row {
+        background-color: #fff;
+    }
+
+    .table-row:hover {
+        background-color: #ddd;
     }
 </style>
