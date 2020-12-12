@@ -2066,6 +2066,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Sweet',
@@ -2080,6 +2085,37 @@ __webpack_require__.r(__webpack_exports__);
       sweets: [],
       sweetUpdate: ""
     };
+  },
+  methods: {
+    getSweets: function getSweets() {
+      var _this = this;
+
+      _axios_auth_js__WEBPACK_IMPORTED_MODULE_0__["default"].get('/api/sweets').then(function (response) {
+        _this.sweets = response.data;
+        return console.log(response.data);
+      })["catch"](function (error) {
+        _this.message = response.error.data;
+        return console.log(response.error.data);
+      });
+    },
+    postSweet: function postSweet() {
+      var _this2 = this;
+
+      _axios_auth_js__WEBPACK_IMPORTED_MODULE_0__["default"].post('/api/sweets', {
+        sweet_name: this.sweet_name,
+        unit_price: this.unit_price
+      }).then(function (response) {
+        _this2.getSweets();
+
+        _this2.sweet_name = "";
+        _this2.unit_price = "";
+        _this2.sweet = response.data;
+        return console.lgo(response.data);
+      })["catch"](function (error) {
+        _this2.message = response.error.data;
+        return console.log(response.error.data);
+      });
+    }
   }
 });
 
@@ -38696,7 +38732,9 @@ var render = function() {
                 )
               ])
             ])
-          ])
+          ]),
+          _vm._v(" "),
+          _c("v-row", [_c("table")])
         ],
         1
       )
@@ -98446,8 +98484,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\xampp\htdocs\laravel\vue-register\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! E:\xampp\htdocs\laravel\vue-register\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /opt/lampp/htdocs/laravel/vue-register/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /opt/lampp/htdocs/laravel/vue-register/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

@@ -19,6 +19,11 @@
                     </li>
                 </ul>
             </v-row>
+            <v-row>
+                <table>
+
+                </table>
+            </v-row>
         </v-container>
     </div>
 </template>
@@ -39,7 +44,38 @@
                 sweetUpdate: "",
             };
         },
-
+        methods: {
+            getSweets(){
+                axios
+                  .get('/api/sweets')
+                  .then(response => {
+                      this.sweets = response.data;
+                      return console.log(response.data);
+                  })
+                  .catch(error => {
+                      this.message = response.error.data;
+                      return console.log(response.error.data);                      
+                  });
+            },
+            postSweet() {
+                axios
+                  .post('/api/sweets', {
+                      sweet_name: this.sweet_name,
+                      unit_price: this.unit_price,
+                  })
+                  .then(response => {
+                      this.getSweets();
+                      this.sweet_name = "";
+                      this.unit_price = "";
+                      this.sweet = response.data;
+                      return console.lgo(response.data);
+                  })
+                  .catch(error => {
+                      this.message = response.error.data;
+                      return console.log(response.error.data);
+                  });
+            },
+        },
     };
 </script>
 

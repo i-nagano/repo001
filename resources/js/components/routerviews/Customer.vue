@@ -7,18 +7,23 @@
             <v-row class="mt-2" justify="start">
                 <ul>
                     <li>
-                        <label for="name">名前</label>
+                        <label for="name">名前:</label>
                         <input type="text" name="name" id="name" v-model="customer_name">
                     </li>
                     <li>
-                        <label for="phone">電話</label>
+                        <label for="phone">電話:</label>
                         <input type="text" name="phone" id="phone" v-model="phone_number">
                     </li>
                     <li>
-                        <label for="email">Email</label>
+                        <label for="email">Email:</label>
                         <input type="text" name="email" id="email" v-model="email">
                     </li>
                 </ul>
+            </v-row>
+            <v-row>
+                <table>
+
+                </table>
             </v-row>
         </v-container>
     </div>
@@ -32,6 +37,12 @@
         props: {},
         data: function () {
             return {
+                showContent: faluse,
+                customer_id: "",
+                customer_name: "",
+                phone_numbe: "",
+                email: "",
+                customers: [],
 
             };
         },
@@ -39,6 +50,17 @@
         mounted: function () {},
         computed: {},
         methods: {
+            getCustomers() {
+                axios
+                  .get('/api/customers')
+                  .then((result) => {
+                      this.customers = result.data;
+                      return console.log(result.data);
+                  }).catch((err) => {
+                      this.message = reponse.err.data;
+                      return console.log(response.err.data);
+                  });
+            },
 
         }
     };
