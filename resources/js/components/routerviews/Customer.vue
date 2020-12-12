@@ -22,7 +22,20 @@
             </v-row>
             <v-row>
                 <table>
+                    <thead>
+                        <tr>
+                            <th>
 
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
             </v-row>
         </v-container>
@@ -46,7 +59,9 @@
                 customer: "",
             };
         },
-        created: function () {},
+        created: function () {
+            this.getCustomers();
+        },
         mounted: function () {},
         computed: {},
         methods: {
