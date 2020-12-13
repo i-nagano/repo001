@@ -107,16 +107,18 @@
                       this.customers = result.data;
                       return console.log(result.data);
                   }).catch((err) => {
-                      this.message = reponse.err.data;
+                      this.message = err.result.data;
                       this.showError = true;
-                    //   return console.log(response.err.data);
+                    //   console.log(result.err.data);
                   });
             },
             postCustomer() {
-                let id = (this.customers).length + 1;
+                // let new_id = this.customers.length + 1;
+                let id_max = this.customers[this.customers.length - 1].id;
+                let new_id = id_max + 1;
                 axios
                   .post('/api/customers', {
-                      customer_id: id,
+                      customer_id: new_id,
                       customer_name: this.customer_name,
                       phone_number: this.phone_number,
                       email: this.email,
@@ -126,12 +128,12 @@
                       this.customer_name = "";
                       this.phone_number = "";
                       this.email = "";
-                      this.customer = response.data;
-                    //   return console.log(response.data);
+                      this.customer = result.data;
+                    //   console.log(result.data);
                   }).catch((err) => {
-                      this.message = err.response.data;
+                      this.message = err.result.data;
                       this.showError = true;
-                    //   return console.log(err.response.data);
+                    //   console.log(err.result.data);
                   });
             },
         },

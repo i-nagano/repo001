@@ -100,19 +100,21 @@
                     .get('/api/sweets')
                     .then(response => {
                         this.sweets = response.data;
-                        return console.log(response.data);
+                        console.log(response.data);
                     })
                     .catch(error => {
                         this.message = response.error.data;
                         this.showError = true;
-                        // return console.log(response.error.data);
+                        // console.log(response.error.data);
                     });
             },
-            postSweet() { 
-                let id = (this.sweets).length + 1;
+            postSweet() {
+                // let new_id = this.sweets.length + 1;
+                let id_max = this.sweets[this.sweets.length - 1].id;
+                let new_id = id_max + 1;
                 axios
                     .post('/api/sweets', {
-                        sweet_id: id,
+                        sweet_id: new_id,
                         sweet_name: this.sweet_name,
                         unit_price: this.unit_price,
                     })
@@ -121,12 +123,12 @@
                         this.sweet_name = "";
                         this.unit_price = "";
                         this.sweet = response.data;
-                        // return console.log(response.data);
+                        // console.log(response.data);
                     })
                     .catch(error => {
                         this.message = error.response.data;
                         this.showError = true;
-                        // return console.log(error.response.data);
+                        // console.log(error.response.data);
                     });
             },
         },
