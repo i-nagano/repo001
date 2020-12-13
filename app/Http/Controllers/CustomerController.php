@@ -27,7 +27,7 @@ class CustomerController extends Controller
     public function store(Request $request)
     {
         $customer = new Customer();
-        $customer->cusotmer_id = $request->customer_id;
+        $customer->customer_id = $request->customer_id;
         $customer->customer_name = $request->customer_name;
         $customer->phone_number =$request->phone_number;
         $customer->email = $request->email;

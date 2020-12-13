@@ -8,14 +8,18 @@
                 <ul>
                     <li>
                         <label for="sweet_name">商品名:</label>
-                        <input type="text" name="sweet_name" id="sweet_name" v-model="sweet_name">
+                        <input type="text" name="sweet_name" id="sweet_name" v-model="$data.sweet_name">
                     </li>
                     <li>
                         <label for="unit_price">単　価:</label>
-                        <input type="text" name="unit_price" id="unit_price" v-model="unit_price">
+                        <input type="text" name="unit_price" id="unit_price" v-model="$data.unit_price">
+                    </li>
+                    <li>
+                        <label for="image_path">画　像:</label>
+                        <input type="file" name="image_path" id="image_path">
                     </li>
                     <li align="right">
-                        <button v-on:click="postSweet" class="btn btn-outline-dark">登録</button>
+                        <button class="btn btn-outline-dark" v-on:click="postSweet">登録</button>
                     </li>
                 </ul>
             </v-row>
@@ -23,6 +27,9 @@
                 <table>
                     <thead class="table-row">
                         <tr>
+                            <th>
+                                ID
+                            </th>
                             <th>
                                 商品名
                             </th>
@@ -34,6 +41,9 @@
                     </thead>
                     <tbody>
                         <tr v-for="sweet in sweets" v-bind:key="sweet.id">
+                            <td>
+                                {{ sweet.sweet_id }}
+                            </td>
                             <td>
                                 {{ sweet.sweet_name }}
                             </td>
@@ -48,7 +58,7 @@
                 </table>
             </v-row>
             <v-row>
-                <ul v-show="message">
+                <ul v-show="showError">
                     <li>
                         エラーメッセージ:
                     </li>
@@ -69,6 +79,7 @@
         props: {},
         data: function () {
             return {
+                showError: false,
                 showContent: false,
                 message: "",
                 sweet_id: "",
@@ -93,13 +104,15 @@
                     })
                     .catch(error => {
                         this.message = response.error.data;
-                        return console.log(response.error.data);
+                        this.showError = true;
+                        // return console.log(response.error.data);
                     });
             },
-            postSweet() {
+            postSweet() { 
+                let id = (this.sweets).length + 1;
                 axios
                     .post('/api/sweets', {
-                        sweet_id: this.sweet_id,
+                        sweet_id: id,
                         sweet_name: this.sweet_name,
                         unit_price: this.unit_price,
                     })
@@ -112,6 +125,7 @@
                     })
                     .catch(error => {
                         this.message = error.response.data;
+                        this.showError = true;
                         // return console.log(error.response.data);
                     });
             },

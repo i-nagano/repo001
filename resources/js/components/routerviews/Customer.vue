@@ -2,41 +2,74 @@
     <div>
         <v-container class="mt-2">
             <v-row class="mt-2" justify="start">
-                <h3>お客様登録</h3>
+                <h5>お客様登録</h5>
             </v-row>
             <v-row class="mt-2" justify="start">
                 <ul>
                     <li>
                         <label for="name">名前:</label>
-                        <input type="text" name="name" id="name" v-model="customer_name">
+                        <input type="text" name="name" id="name" v-model="$data.customer_name">
                     </li>
                     <li>
                         <label for="phone">電話:</label>
-                        <input type="text" name="phone" id="phone" v-model="phone_number">
+                        <input type="text" name="phone" id="phone" v-model="$data.phone_number">
                     </li>
                     <li>
                         <label for="email">Email:</label>
-                        <input type="text" name="email" id="email" v-model="email">
+                        <input type="text" name="email" id="email" v-model="$data.email">
+                    </li>
+                    <li align="right">
+                        <button class="btn btn-outline-dark" v-on:click="postCustomer">登録</button>
                     </li>
                 </ul>
             </v-row>
             <v-row>
                 <table>
-                    <thead>
+                    <thead class="table-row">
                         <tr>
                             <th>
-
+                                ID
                             </th>
+                            <th>
+                                名前
+                            </th>
+                            <th>
+                                電話
+                            </th>
+                            <th>
+                                Email
+                            </th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <tr v-for="customer in customers" v-bind:key="customer.id">
                             <td>
-                                
+                                {{ customer.customer_id }}
+                            </td>
+                            <td>
+                                {{ customer.customer_name }}
+                            </td>
+                            <td>
+                                {{ customer.phone_number }}
+                            </td>
+                            <td>
+                                {{ customer.email }}
+                            </td>
+                            <td>
+                                <button>編集</button>
                             </td>
                         </tr>
                     </tbody>
                 </table>
+            </v-row>
+            <v-row>
+                <ul v-show="showError">
+                    <li>エラーメッセージ:</li>
+                    <li>
+                        {{ $data.message }}
+                    </li>
+                </ul>
             </v-row>
         </v-container>
     </div>
@@ -50,7 +83,9 @@
         props: {},
         data: function () {
             return {
+                showError: false,
                 showContent: false,
+                message: "",
                 customer_id: "",
                 customer_name: "",
                 phone_number: "",
@@ -73,15 +108,18 @@
                       return console.log(result.data);
                   }).catch((err) => {
                       this.message = reponse.err.data;
-                      return console.log(response.err.data);
+                      this.showError = true;
+                    //   return console.log(response.err.data);
                   });
             },
             postCustomer() {
+                let id = (this.customers).length + 1;
                 axios
-                  .post('/api/cutomers', {
+                  .post('/api/customers', {
+                      customer_id: id,
                       customer_name: this.customer_name,
-                      phone_number = this.phone_number,
-                      email = this.email,
+                      phone_number: this.phone_number,
+                      email: this.email,
                   })
                   .then((result) => {
                       this.getCustomers();
@@ -89,19 +127,27 @@
                       this.phone_number = "";
                       this.email = "";
                       this.customer = response.data;
-                      return console.log(response.data);
+                    //   return console.log(response.data);
                   }).catch((err) => {
-                      this.message = err.reponse.data;
-                      return console.log(err.response.data);
+                      this.message = err.response.data;
+                      this.showError = true;
+                    //   return console.log(err.response.data);
                   });
-            }
-
-        }
+            },
+        },
     };
 </script>
 
 <style scoped>
     ul {
         list-style: none;
+    }
+
+    .table-row {
+        background-color: #fff;
+    }
+
+    .table-row:hover {
+        background-color: #ddd;
     }
 </style>

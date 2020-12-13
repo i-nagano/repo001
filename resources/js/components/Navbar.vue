@@ -5,6 +5,9 @@
                 <router-link to="/home/sweet">
                     <span>Sweets</span>|
                 </router-link>
+                <router-link to="/home/customer">
+                    <span>Customers</span>|
+                </router-link>
                 <router-link to="/home/register">
                     <span>Register</span>|
                 </router-link>
