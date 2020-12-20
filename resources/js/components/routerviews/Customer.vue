@@ -113,9 +113,9 @@
                   });
             },
             postCustomer() {
-                // let new_id = this.customers.length + 1;
-                let id_max = this.customers[this.customers.length - 1].id;
-                let new_id = id_max + 1;
+                let new_id = this.customers.length + 1;
+                // let id_max = this.customers[this.customers.length - 1].id;
+                // let new_id = id_max + 1;
                 axios
                   .post('/api/customers', {
                       customer_id: new_id,

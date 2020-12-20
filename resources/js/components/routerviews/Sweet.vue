@@ -15,8 +15,14 @@
                         <input type="text" name="unit_price" id="unit_price" v-model="$data.unit_price">
                     </li>
                     <li>
-                        <label for="image_path">画　像:</label>
-                        <input type="file" name="image_path" id="image_path">
+                        <label for="file">画　像:</label>
+                        <input type="file" name="file" id="file" v-on:change="confirmImage">
+                    </li>
+                    <li v-show="confirmedImage">
+                        <img class="img" v-bind:src="confirmedImage" alt="sweet_image" height="50px" width="50px">
+                    </li>
+                    <li v-show="img_message">
+                        {{ $data.img_message }}
                     </li>
                     <li align="right">
                         <button class="btn btn-outline-dark" v-on:click="postSweet">登録</button>
@@ -36,6 +42,9 @@
                             <th>
                                 単　価
                             </th>
+                            <th>
+                                画　像
+                            </th>
                             <th></th>
                         </tr>
                     </thead>
@@ -49,6 +58,9 @@
                             </td>
                             <td>
                                 {{ sweet.unit_price }}
+                            </td>
+                            <td>
+                                <img class="img" v-bind:src="`${sweet.image_path}`" alt="sweet_image" height="50px" width="50px">
                             </td>
                             <td>
                                 <button>編集</button>
@@ -82,12 +94,15 @@
                 showError: false,
                 showContent: false,
                 message: "",
+                img_message: "",
                 sweet_id: "",
                 sweet_name: "",
                 unit_price: "",
                 sweets: [],
                 sweetUpdate: "",
                 sweet: "",
+                file: "",
+                confirmedImage: "",
             };
         },
         created: function() {
@@ -108,20 +123,45 @@
                         // console.log(response.error.data);
                     });
             },
+            confirmImage(event) {
+                this.img_message = "",
+                this.file = event.target.files[0];
+                if(!this.file.type.match('image.*')) {
+                    this.img_message = "画像ファイルを選択してください";
+                    this.confirmedImage = "";
+                    return;
+                };
+                this.createImage(this.file);
+            },
+            createImage(file) {
+                let reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = event => {
+                    this.confirmedImage = event.target.result;
+                };
+            },
             postSweet() {
-                // let new_id = this.sweets.length + 1;
-                let id_max = this.sweets[this.sweets.length - 1].id;
-                let new_id = id_max + 1;
+                let new_id = this.sweets.length + 1;
+                // let id_max = this.sweets[this.sweets.length - 1].id;
+                // let new_id = id_max + 1;
+                let formData = new FormData();
+                    formData.append('sweet_id', new_id);
+                    formData.append('sweet_name', this.sweet_name,);
+                    formData.append('unit_price', this.unit_price);
+                    formData.append('file', this.file);
+
                 axios
-                    .post('/api/sweets', {
-                        sweet_id: new_id,
-                        sweet_name: this.sweet_name,
-                        unit_price: this.unit_price,
+                    .post('/api/sweets', formData, {
+                        headers: {
+                            'content-type': 'multipart/form-data'
+                            }
                     })
                     .then(response => {
                         this.getSweets();
                         this.sweet_name = "";
                         this.unit_price = "";
+                        this.file = "",
+                        this.confirmedImage = "",
                         this.sweet = response.data;
                         // console.log(response.data);
                     })

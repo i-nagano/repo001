@@ -26,11 +26,18 @@ class SweetController extends Controller
      */
     public function store(Request $request)
     {
+        if (request()->file) {
+            $original_name = request()->file->getClientOriginalName();
+            $file_name = $original_name . '.' . time();
+            $request->file->storeAs('public/images', $file_name);
+        
         $sweet = new Sweet();
         $sweet->sweet_id = $request->sweet_id;
         $sweet->sweet_name = $request->sweet_name;
         $sweet->unit_price = $request->unit_price;
+        $sweet->image_path = 'storage/images/' . $file_name;
         $sweet->save();
+        }
     }
 
     /**

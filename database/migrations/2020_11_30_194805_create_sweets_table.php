@@ -18,6 +18,7 @@ class CreateSweetsTable extends Migration
             $table->integer('sweet_id')->nullable();
             $table->string('sweet_name');
             $table->double('unit_price');
+            $table->string('image_path')->default('');
             $table->timestamps();
         });
     }

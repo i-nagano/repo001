@@ -2088,9 +2088,9 @@ __webpack_require__.r(__webpack_exports__);
     postCustomer: function postCustomer() {
       var _this2 = this;
 
-      // let new_id = this.customers.length + 1;
-      var id_max = this.customers[this.customers.length - 1].id;
-      var new_id = id_max + 1;
+      var new_id = this.customers.length + 1; // let id_max = this.customers[this.customers.length - 1].id;
+      // let new_id = id_max + 1;
+
       _axios_auth_js__WEBPACK_IMPORTED_MODULE_0__["default"].post('/api/customers', {
         customer_id: new_id,
         customer_name: this.customer_name,
@@ -2267,6 +2267,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Sweet',
@@ -2277,12 +2289,15 @@ __webpack_require__.r(__webpack_exports__);
       showError: false,
       showContent: false,
       message: "",
+      img_message: "",
       sweet_id: "",
       sweet_name: "",
       unit_price: "",
       sweets: [],
       sweetUpdate: "",
-      sweet: ""
+      sweet: "",
+      file: "",
+      confirmedImage: ""
     };
   },
   created: function created() {
@@ -2301,25 +2316,52 @@ __webpack_require__.r(__webpack_exports__);
         _this.showError = true; // console.log(response.error.data);
       });
     },
-    postSweet: function postSweet() {
+    confirmImage: function confirmImage(event) {
+      this.img_message = "", this.file = event.target.files[0];
+
+      if (!this.file.type.match('image.*')) {
+        this.img_message = "画像ファイルを選択してください";
+        this.confirmedImage = "";
+        return;
+      }
+
+      ;
+      this.createImage(this.file);
+    },
+    createImage: function createImage(file) {
       var _this2 = this;
 
-      // let new_id = this.sweets.length + 1;
-      var id_max = this.sweets[this.sweets.length - 1].id;
-      var new_id = id_max + 1;
-      _axios_auth_js__WEBPACK_IMPORTED_MODULE_0__["default"].post('/api/sweets', {
-        sweet_id: new_id,
-        sweet_name: this.sweet_name,
-        unit_price: this.unit_price
-      }).then(function (response) {
-        _this2.getSweets();
+      var reader = new FileReader();
+      reader.readAsDataURL(file);
 
-        _this2.sweet_name = "";
-        _this2.unit_price = "";
-        _this2.sweet = response.data; // console.log(response.data);
+      reader.onload = function (event) {
+        _this2.confirmedImage = event.target.result;
+      };
+    },
+    postSweet: function postSweet() {
+      var _this3 = this;
+
+      var new_id = this.sweets.length + 1; // let id_max = this.sweets[this.sweets.length - 1].id;
+      // let new_id = id_max + 1;
+
+      var formData = new FormData();
+      formData.append('sweet_id', new_id);
+      formData.append('sweet_name', this.sweet_name);
+      formData.append('unit_price', this.unit_price);
+      formData.append('file', this.file);
+      _axios_auth_js__WEBPACK_IMPORTED_MODULE_0__["default"].post('/api/sweets', formData, {
+        headers: {
+          'content-type': 'multipart/form-data'
+        }
+      }).then(function (response) {
+        _this3.getSweets();
+
+        _this3.sweet_name = "";
+        _this3.unit_price = "";
+        _this3.file = "", _this3.confirmedImage = "", _this3.sweet = response.data; // console.log(response.data);
       })["catch"](function (error) {
-        _this2.message = error.response.data;
-        _this2.showError = true; // console.log(error.response.data);
+        _this3.message = error.response.data;
+        _this3.showError = true; // console.log(error.response.data);
       });
     }
   }
@@ -39214,14 +39256,59 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("li", [
-                _c("label", { attrs: { for: "image_path" } }, [
-                  _vm._v("画　像:")
-                ]),
+                _c("label", { attrs: { for: "file" } }, [_vm._v("画　像:")]),
                 _vm._v(" "),
                 _c("input", {
-                  attrs: { type: "file", name: "image_path", id: "image_path" }
+                  attrs: { type: "file", name: "file", id: "file" },
+                  on: { change: _vm.confirmImage }
                 })
               ]),
+              _vm._v(" "),
+              _c(
+                "li",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.confirmedImage,
+                      expression: "confirmedImage"
+                    }
+                  ]
+                },
+                [
+                  _c("img", {
+                    staticClass: "img",
+                    attrs: {
+                      src: _vm.confirmedImage,
+                      alt: "sweet_image",
+                      height: "50px",
+                      width: "50px"
+                    }
+                  })
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "li",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.img_message,
+                      expression: "img_message"
+                    }
+                  ]
+                },
+                [
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(_vm.$data.img_message) +
+                      "\n                "
+                  )
+                ]
+              ),
               _vm._v(" "),
               _c("li", { attrs: { align: "right" } }, [
                 _c(
@@ -39258,6 +39345,12 @@ var render = function() {
                     )
                   ]),
                   _vm._v(" "),
+                  _c("th", [
+                    _vm._v(
+                      "\n                            画　像\n                        "
+                    )
+                  ]),
+                  _vm._v(" "),
                   _c("th")
                 ])
               ]),
@@ -39288,6 +39381,18 @@ var render = function() {
                           _vm._s(sweet.unit_price) +
                           "\n                        "
                       )
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("img", {
+                        staticClass: "img",
+                        attrs: {
+                          src: "" + sweet.image_path,
+                          alt: "sweet_image",
+                          height: "50px",
+                          width: "50px"
+                        }
+                      })
                     ]),
                     _vm._v(" "),
                     _c("td", [_c("button", [_vm._v("編集")])])
@@ -99170,8 +99275,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\laravel\vue-register\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\laravel\vue-register\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /opt/lampp/htdocs/laravel/vue-register/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /opt/lampp/htdocs/laravel/vue-register/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
