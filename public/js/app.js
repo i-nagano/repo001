@@ -2318,6 +2318,31 @@ __webpack_require__.r(__webpack_exports__);
     },
     confirmImage: function confirmImage(event) {
       this.img_message = "", this.file = event.target.files[0];
+      var name = this.file.name;
+      var size = this.file.size;
+      var type = this.file.type;
+      var file_errors = ''; //上限サイズは3MB
+
+      if (size > 3000000) {
+        file_errors += name + 'は、' + 'ファイルの上限サイズ3MBを超えています\n';
+      }
+
+      ; //拡張子は .jpg .gif .png . pdf のみ許可
+
+      if (type != 'image/jpeg' && type != 'image/gif' && type != 'image/png' && type != 'application/pdf') {
+        file_errors += 'アップロードは、.jpg、.gif、.png、.pdfのいずれかのファイルのみ許可されています\n';
+      }
+
+      ;
+
+      if (file_errors) {
+        //errorsが存在する場合は内容をalert
+        alert(file_errors); //valueを空にしてリセットする
+
+        event.currentTarget.value = '';
+      }
+
+      ;
 
       if (!this.file.type.match('image.*')) {
         this.img_message = "画像ファイルを選択してください";
@@ -99275,8 +99300,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /opt/lampp/htdocs/laravel/vue-register/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /opt/lampp/htdocs/laravel/vue-register/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\laravel\vue-register\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\laravel\vue-register\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
