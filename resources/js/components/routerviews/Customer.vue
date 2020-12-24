@@ -117,7 +117,7 @@
                     id_max = '';
                     if(this.customers.length > 0) {
                         id_max = this.customers[this.customers.length - 1].id;
-                        new_id = + 1;
+                        new_id = id_max + 1;
                     } else {
                         new_id = this.customers.length + 1;
                     };

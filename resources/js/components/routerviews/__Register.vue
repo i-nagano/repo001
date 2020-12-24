@@ -1,20 +1,25 @@
 <template>
     <div>
-        <v-container>
-            <v-card v-for="sweet in sweets" v-bind:key="sweet.id" width="300" class="ma-1">
-                <v-card-title>
-                    {{ sweet.sweet_id }}, {{ sweet.sweet_name }}, {{ sweet.unit_price }}
-                </v-card-title>
-            </v-card>
-        </v-container>
         <v-card>
             <v-container>
                 <v-row>
-                    <v-col v-for="sweet in sweets" v-bind:key="sweet.id">
-                        <v-card outlined tile height="100" width="150">
-                            {{ sweet.sweet_id }}, {{ sweet.sweet_name }}, {{ sweet.unit_price }}
-                        </v-card>
-                    </v-col>
+                    <v-col>1</v-col>
+                    <v-col>2</v-col>
+                    <v-col>3</v-col>
+                    <v-col>4</v-col>
+                    <v-col>5</v-col>
+                    <v-col>6</v-col>
+                    <v-col>7</v-col>
+                    <v-col>8</v-col>
+                    <v-col>9</v-col>
+                    <v-col>10</v-col>
+                    <v-col>11</v-col>
+                    <v-col>12</v-col>
+                    <v-col>13</v-col>
+                    <v-col>14</v-col>
+                    <v-col>15</v-col>
+                    <v-col>16</v-col>
+                    <v-col>17</v-col>
                 </v-row>
             </v-container>
         </v-card>
@@ -56,10 +61,11 @@
             };
         },
         created: function() {
-            this.getCustomers();
-            this.getSweets();
+
         },
-        mounted: function() {},
+        mounted: function() {
+
+        },
         methods: {
             getCustomers() {
                 axios

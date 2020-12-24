@@ -2093,7 +2093,7 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.customers.length > 0) {
         id_max = this.customers[this.customers.length - 1].id;
-        new_id = +1;
+        new_id = id_max + 1;
       } else {
         new_id = this.customers.length + 1;
       }
@@ -2175,18 +2175,46 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Register',
   components: {},
   props: {},
   data: function data() {
-    return {};
+    return {
+      customers: [],
+      sweets: [],
+      showError: ""
+    };
+  },
+  created: function created() {
+    this.getCustomers();
+    this.getSweets();
+  },
+  mounted: function mounted() {},
+  methods: {
+    getCustomers: function getCustomers() {
+      var _this = this;
+
+      _axios_auth_js__WEBPACK_IMPORTED_MODULE_0__["default"].get('/api/customers').then(function (response) {
+        _this.customers = response.data;
+        console.log(response.data);
+      })["catch"](function (error) {
+        _this.message = error.response.data;
+        _this.showError = true; //   console.log(error.response.data);
+      });
+    },
+    getSweets: function getSweets() {
+      var _this2 = this;
+
+      _axios_auth_js__WEBPACK_IMPORTED_MODULE_0__["default"].get('/api/sweets').then(function (response) {
+        _this2.sweets = response.data;
+        console.log(_this2.response.data);
+      })["catch"](function (error) {
+        _this2.message = error.response.data;
+        _this2.showError = true; //   console.log(error.response.data);
+      });
+    }
   }
 });
 
@@ -2329,13 +2357,13 @@ __webpack_require__.r(__webpack_exports__);
       var name = this.file.name;
       var size = this.file.size;
       var type = this.file.type;
-      var file_errors = ''; //上限サイズは3MB
+      var file_errors = ''; // 上限サイズは3MB
 
       if (size > 3000000) {
         file_errors += name + 'は、' + 'ファイルの上限サイズ3MBを超えています\n';
       }
 
-      ; //拡張子は .jpg .gif .png . pdf のみ許可
+      ; // 拡張子は .jpg .gif .png . pdf のみ許可
 
       if (type != 'image/jpeg' && type != 'image/gif' && type != 'image/png' && type != 'application/pdf') {
         file_errors += 'アップロードは、.jpg、.gif、.png、.pdfのいずれかのファイルのみ許可されています\n';
@@ -2344,8 +2372,8 @@ __webpack_require__.r(__webpack_exports__);
       ;
 
       if (file_errors) {
-        //errorsが存在する場合は内容をalert
-        alert(file_errors); //valueを空にしてリセットする
+        // errorsが存在する場合は内容をalert
+        alert(file_errors); // valueを空にしてリセットする
 
         event.currentTarget.value = '';
       }
@@ -39033,6 +39061,31 @@ var render = function() {
     "div",
     [
       _c(
+        "v-container",
+        _vm._l(_vm.sweets, function(sweet) {
+          return _c(
+            "v-card",
+            { key: sweet.id, staticClass: "ma-1", attrs: { width: "300" } },
+            [
+              _c("v-card-title", [
+                _vm._v(
+                  "\n                " +
+                    _vm._s(sweet.sweet_id) +
+                    ", " +
+                    _vm._s(sweet.sweet_name) +
+                    ", " +
+                    _vm._s(sweet.unit_price) +
+                    "\n            "
+                )
+              ])
+            ],
+            1
+          )
+        }),
+        1
+      ),
+      _vm._v(" "),
+      _c(
         "v-card",
         [
           _c(
@@ -39040,41 +39093,37 @@ var render = function() {
             [
               _c(
                 "v-row",
-                [
-                  _c("v-col", [_vm._v("1")]),
-                  _vm._v(" "),
-                  _c("v-col", [_vm._v("2")]),
-                  _vm._v(" "),
-                  _c("v-col", [_vm._v("3")]),
-                  _vm._v(" "),
-                  _c("v-col", [_vm._v("4")]),
-                  _vm._v(" "),
-                  _c("v-col", [_vm._v("5")]),
-                  _vm._v(" "),
-                  _c("v-col", [_vm._v("6")]),
-                  _vm._v(" "),
-                  _c("v-col", [_vm._v("7")]),
-                  _vm._v(" "),
-                  _c("v-col", [_vm._v("8")]),
-                  _vm._v(" "),
-                  _c("v-col", [_vm._v("9")]),
-                  _vm._v(" "),
-                  _c("v-col", [_vm._v("10")]),
-                  _vm._v(" "),
-                  _c("v-col", [_vm._v("11")]),
-                  _vm._v(" "),
-                  _c("v-col", [_vm._v("12")]),
-                  _vm._v(" "),
-                  _c("v-col", [_vm._v("13")]),
-                  _vm._v(" "),
-                  _c("v-col", [_vm._v("14")]),
-                  _vm._v(" "),
-                  _c("v-col", [_vm._v("15")]),
-                  _vm._v(" "),
-                  _c("v-col", [_vm._v("16")]),
-                  _vm._v(" "),
-                  _c("v-col", [_vm._v("17")])
-                ],
+                _vm._l(_vm.sweets, function(sweet) {
+                  return _c(
+                    "v-col",
+                    { key: sweet.id },
+                    [
+                      _c(
+                        "v-card",
+                        {
+                          attrs: {
+                            outlined: "",
+                            tile: "",
+                            height: "100",
+                            width: "150"
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n                        " +
+                              _vm._s(sweet.sweet_id) +
+                              ", " +
+                              _vm._s(sweet.sweet_name) +
+                              ", " +
+                              _vm._s(sweet.unit_price) +
+                              "\n                    "
+                          )
+                        ]
+                      )
+                    ],
+                    1
+                  )
+                }),
                 1
               )
             ],

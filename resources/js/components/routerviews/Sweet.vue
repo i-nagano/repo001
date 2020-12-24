@@ -131,20 +131,20 @@
                 let type = this.file.type;
                 let file_errors = '';
 
-                //上限サイズは3MB
+                // 上限サイズは3MB
                 if (size > 3000000) {
                     file_errors += name + 'は、' + 'ファイルの上限サイズ3MBを超えています\n'
                 };
 
-                //拡張子は .jpg .gif .png . pdf のみ許可
+                // 拡張子は .jpg .gif .png . pdf のみ許可
                 if (type != 'image/jpeg' && type != 'image/gif' && type != 'image/png' && type != 'application/pdf') {
                     file_errors += 'アップロードは、.jpg、.gif、.png、.pdfのいずれかのファイルのみ許可されています\n'
                 };
 
                 if (file_errors) {
-                    //errorsが存在する場合は内容をalert
+                    // errorsが存在する場合は内容をalert
                     alert(file_errors)
-                    //valueを空にしてリセットする
+                    // valueを空にしてリセットする
                     event.currentTarget.value = ''
                 };
 
