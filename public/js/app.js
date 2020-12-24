@@ -2088,9 +2088,17 @@ __webpack_require__.r(__webpack_exports__);
     postCustomer: function postCustomer() {
       var _this2 = this;
 
-      var new_id = this.customers.length + 1; // let id_max = this.customers[this.customers.length - 1].id;
-      // let new_id = id_max + 1;
+      var new_id = '',
+          id_max = '';
 
+      if (this.customers.length > 0) {
+        id_max = this.customers[this.customers.length - 1].id;
+        new_id = +1;
+      } else {
+        new_id = this.customers.length + 1;
+      }
+
+      ;
       _axios_auth_js__WEBPACK_IMPORTED_MODULE_0__["default"].post('/api/customers', {
         customer_id: new_id,
         customer_name: this.customer_name,
@@ -2366,9 +2374,17 @@ __webpack_require__.r(__webpack_exports__);
     postSweet: function postSweet() {
       var _this3 = this;
 
-      var new_id = this.sweets.length + 1; // let id_max = this.sweets[this.sweets.length - 1].id;
-      // let new_id = id_max + 1;
+      var new_id = '',
+          id_max = '';
 
+      if (this.sweets.length > 0) {
+        id_max = this.sweets[this.sweets.length - 1].id;
+        new_id = id_max + 1;
+      } else {
+        new_id = this.sweets.length + 1;
+      }
+
+      ;
       var formData = new FormData();
       formData.append('sweet_id', new_id);
       formData.append('sweet_name', this.sweet_name);
@@ -99300,8 +99316,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\laravel\vue-register\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\laravel\vue-register\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! E:\xampp\htdocs\laravel\vue-register\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! E:\xampp\htdocs\laravel\vue-register\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

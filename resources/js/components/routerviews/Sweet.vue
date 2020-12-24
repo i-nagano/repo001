@@ -163,15 +163,19 @@
                 };
             },
             postSweet() {
-                let new_id = this.sweets.length + 1;
-                // let id_max = this.sweets[this.sweets.length - 1].id;
-                // let new_id = id_max + 1;
+                let new_id = '',
+                    id_max = '';
+                    if(this.sweets.length > 0) {
+                        id_max = this.sweets[this.sweets.length - 1].id;
+                        new_id = id_max + 1;
+                    } else {
+                        new_id = this.sweets.length + 1;
+                    };
                 let formData = new FormData();
                     formData.append('sweet_id', new_id);
                     formData.append('sweet_name', this.sweet_name,);
                     formData.append('unit_price', this.unit_price);
                     formData.append('file', this.file);
-
                 axios
                     .post('/api/sweets', formData, {
                         headers: {
